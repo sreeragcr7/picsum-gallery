@@ -1,4 +1,4 @@
-part of 'galary_bloc.dart';
+part of 'gallery_bloc.dart';
 
 sealed class GalaryState extends Equatable {
   const GalaryState();
