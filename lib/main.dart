@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picsum_gallery/core/theme/app_theme.dart';
-import 'package:picsum_gallery/features/gallery/data/datasources/photo_remote_data_source.dart';
-import 'package:picsum_gallery/features/gallery/data/repositories/photo_repository_impl.dart';
-import 'package:picsum_gallery/features/gallery/domain/repository/photo_repository.dart';
+
 import 'package:picsum_gallery/features/gallery/presentation/bloc/photo_bloc.dart';
 import 'package:picsum_gallery/features/gallery/presentation/pages/gallary_page.dart';
 import 'package:picsum_gallery/init_dependencies.dart';
