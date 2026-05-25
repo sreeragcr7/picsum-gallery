@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<PhotoBloc>()..add(FetchPhotosEvent()),
+      create: (_) => sl<PhotoBloc>(),
       child: MaterialApp(
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
@@ -30,3 +30,19 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// Save favorite locally
+// Using Hive/shared_preferences. ,   README
+// ⭐ Offline support
+
+// Git cleanup
+// Screenshots
+// Final testing
+
+// ⭐ Debounced search
+// ⭐ SliverAppBar
+// ⭐ Cached search results
+// ⭐ Favorites
+// ⭐ Dark mode
+// ⭐ Skeleton loaders
+// ⭐ Animated transitions

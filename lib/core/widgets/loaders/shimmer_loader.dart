@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:picsum_gallery/features/gallery/presentation/widgets/photo_card_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerLoader extends StatelessWidget {
@@ -6,30 +7,48 @@ class ShimmerLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ListView.builder(
       itemCount: 5,
+
       itemBuilder: (_, _) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
-            Container(height: 20, width: 120, margin: const EdgeInsets.all(16), color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, bottom: 15),
+
+              child: Shimmer.fromColors(
+                baseColor: colorScheme.surfaceContainer,
+
+                highlightColor: colorScheme.surfaceContainerHighest,
+
+                child: Container(
+                  height: 20,
+                  width: 120,
+
+                  decoration: BoxDecoration(color: colorScheme.surface, borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+            ),
+
             SizedBox(
-              height: 220,
+              height: 200,
+
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
+
                 itemCount: 5,
+
                 itemBuilder: (_, _) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    child: Container(
-                      width: 160,
-                      margin: const EdgeInsets.only(left: 16),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
-                    ),
-                  );
+                  return const PhotoCardShimmer();
                 },
               ),
             ),
+
+            const SizedBox(height: 25),
           ],
         );
       },

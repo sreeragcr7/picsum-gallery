@@ -6,7 +6,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
    PhotoRepositoryImpl(this.photoRemoteDataSource);
   final PhotoRemoteDataSource photoRemoteDataSource;
   @override
-  Future<List<PhotoEntity>> getPhotos() async{
-    return await photoRemoteDataSource.fetchPhotos();
+  Future<List<PhotoEntity>> getPhotos(int page) async{
+    return await photoRemoteDataSource.fetchPhotos(page);
   }
 }

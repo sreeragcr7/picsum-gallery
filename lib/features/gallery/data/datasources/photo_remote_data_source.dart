@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 import 'package:picsum_gallery/features/gallery/data/models/photo_model.dart';
 
 abstract interface class PhotoRemoteDataSource {
-  Future<List<PhotoModel>> fetchPhotos();
+  Future<List<PhotoModel>> fetchPhotos(int page);
 }
 
 class PhotoRemoteDataSourceImpl implements PhotoRemoteDataSource {
   @override
-  Future<List<PhotoModel>> fetchPhotos() async {
+  Future<List<PhotoModel>> fetchPhotos(int page) async {
     try {
-      final response = await http.get(Uri.parse('https://picsum.photos/v2/list'));
+      final response = await http.get(Uri.parse('https://picsum.photos/v2/list?page=$page&limit=20'));
 
       if (response.statusCode == HttpStatus.ok) {
         final List<dynamic> data = jsonDecode(response.body);

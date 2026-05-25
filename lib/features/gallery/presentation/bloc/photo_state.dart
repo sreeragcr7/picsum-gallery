@@ -12,11 +12,12 @@ final class PhotoInitial extends PhotoState {}
 final class PhotoLoading extends PhotoState {}
 
 final class PhotoLoaded extends PhotoState {
-  const PhotoLoaded(this.photos);
-  final List<PhotoEntity> photos;
+  const PhotoLoaded({required this.allPhotos, required this.filteredPhotos});
+  final List<PhotoEntity> allPhotos;
+  final List<PhotoEntity> filteredPhotos;
 
   @override
-  List<Object> get props => [photos];
+  List<Object> get props => [allPhotos, filteredPhotos];
 }
 
 final class PhotoError extends PhotoState {
