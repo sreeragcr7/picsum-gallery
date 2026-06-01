@@ -6,23 +6,15 @@ The application fetches images from the Picsum API and presents them in an organ
 
 ---
 
+
 ## Screenshots
 
-### Image Details
-
-![Image Details](assets/screenshots/img_details.jpg)
-
-### Splash Screen
-
-![Splash Screen](assets/screenshots/splash_screen.jpg)
-
-### Gallery Screen
-
-![Gallery Screen](assets/screenshots/gallery_page.jpg)
-
-### Gallery Screen 2
-
-![Gallery Screen 2](assets/screenshots/gallery_page2.jpg)
+<p align="center">
+  <img src="assets/screenshots/splash_screen.jpg" width="220"/>
+  <img src="assets/screenshots/gallery_page.jpg" width="220"/>
+  <img src="assets/screenshots/gallery_page2.jpg" width="220"/>
+  <img src="assets/screenshots/img_details.jpg" width="220"/>
+</p>
 
 ---
 
