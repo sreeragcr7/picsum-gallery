@@ -7,15 +7,22 @@ The application fetches images from the Picsum API and presents them in an organ
 ---
 
 ## Screenshots
-assets/screenshots/img_details.jpg
 
+### Image Details
+
+![Image Details](assets/screenshots/img_details.jpg)
 
 ### Splash Screen
-assets/screenshots/splash_screen.jpg
+
+![Splash Screen](assets/screenshots/splash_screen.jpg)
 
 ### Gallery Screen
-assets/screenshots/gallery_page.jpg
-assets/screenshots/gallery_page2.jpg
+
+![Gallery Screen](assets/screenshots/gallery_page.jpg)
+
+### Gallery Screen 2
+
+![Gallery Screen 2](assets/screenshots/gallery_page2.jpg)
 
 ---
 
@@ -131,14 +138,14 @@ Example Response:
 
 ## Packages Used
 
-| Package | Purpose |
-|----------|----------|
-| flutter_bloc | State Management |
-| equatable | Value Equality |
-| http | API Requests |
-| cached_network_image | Image Caching |
-| shimmer | Loading Skeletons |
-| get_it | Dependency Injection |
+| Package              | Purpose              |
+| -------------------- | -------------------- |
+| flutter_bloc         | State Management     |
+| equatable            | Value Equality       |
+| http                 | API Requests         |
+| cached_network_image | Image Caching        |
+| shimmer              | Loading Skeletons    |
+| get_it               | Dependency Injection |
 
 ---
 
@@ -147,7 +154,7 @@ Example Response:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/picsum-gallery.git
+git clone https://github.com/sreeragcr7/picsum-gallery.git
 ```
 
 ### Install Packages
