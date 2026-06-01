@@ -1,17 +1,193 @@
-# picsum_gallery
+# Picsum Gallery
 
-A new Flutter project.
+A modern Flutter gallery application built using Clean Architecture, BLoC State Management, and Material 3 design.
+
+The application fetches images from the Picsum API and presents them in an organized gallery grouped by author.
+
+---
+
+## Screenshots
+assets/screenshots/img_details.jpg
+
+
+### Splash Screen
+assets/screenshots/splash_screen.jpg
+
+### Gallery Screen
+assets/screenshots/gallery_page.jpg
+assets/screenshots/gallery_page2.jpg
+
+---
+
+### Core Features
+
+✅ Fetch photos from Picsum API
+
+✅ Clean Architecture
+
+✅ BLoC State Management
+
+✅ Repository Pattern
+
+✅ Dependency Injection
+
+✅ Material 3 UI
+
+✅ Group photos by author
+
+✅ Horizontal image galleries
+
+✅ Search photos by author
+
+✅ Pull to refresh
+
+✅ Infinite scrolling pagination
+
+✅ Hero image animations
+
+✅ Full-screen image preview
+
+✅ Cached network images
+
+✅ Shimmer loading placeholders
+
+✅ Dark Mode support
+
+---
+
+## Architecture
+
+This project follows Clean Architecture principles.
+
+```
+lib/
+├── core/
+│   ├── common/
+│   ├── theme/
+│   └── widgets/
+│
+├── features/
+│   ├── splash/
+│   │
+│   └── gallery/
+│       ├── data/
+│       │   ├── datasources/
+│       │   ├── models/
+│       │   └── repositories/
+│       │
+│       ├── domain/
+│       │   └── repository/
+│       │
+│       └── presentation/
+│           ├── bloc/
+│           ├── pages/
+│           └── widgets/
+│
+└── init_dependencies.dart
+```
+
+---
+
+## State Management
+
+The application uses:
+
+- flutter_bloc
+- Equatable
+
+State Flow:
+
+```
+UI
+ ↓
+Bloc Event
+ ↓
+Repository
+ ↓
+Remote Data Source
+ ↓
+API
+```
+
+---
+
+## API
+
+Data is fetched from:
+
+https://picsum.photos/v2/list
+
+Example Response:
+
+```json
+{
+  "id": "0",
+  "author": "Alejandro Escamilla",
+  "download_url": "..."
+}
+```
+
+---
+
+## Packages Used
+
+| Package | Purpose |
+|----------|----------|
+| flutter_bloc | State Management |
+| equatable | Value Equality |
+| http | API Requests |
+| cached_network_image | Image Caching |
+| shimmer | Loading Skeletons |
+| get_it | Dependency Injection |
+
+---
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Clone Repository
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+git clone https://github.com/your-username/picsum-gallery.git
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### Install Packages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+```
+
+### Run Application
+
+```bash
+flutter run
+```
+
+---
+
+## Performance Optimizations
+
+- Image caching using CachedNetworkImage
+- Lazy loading pagination
+- Efficient BLoC state updates
+- Reusable widgets
+- Clean separation of concerns
+
+---
+
+## Future Improvements
+
+- Favorite Images
+- Offline Support
+- Local Database (Hive)
+- Debounced Search
+- SliverAppBar
+- Grid/List View Toggle
+- Image Download Support
+
+---
+
+## Author
+
+Sreerag
+
+Built as part of an Intern Selection Task using Flutter.

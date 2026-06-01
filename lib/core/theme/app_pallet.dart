@@ -35,6 +35,6 @@ class AppPalette {
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF6C63FF), Color(0xFF8B5CF6)],
+    colors: [Color(0xFF6C63FF), Color(0xFF5A36BE), Color(0xFF2B1068)],
   );
 }

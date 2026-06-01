@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picsum_gallery/core/theme/app_theme.dart';
 
 import 'package:picsum_gallery/features/gallery/presentation/bloc/photo_bloc.dart';
-import 'package:picsum_gallery/features/gallery/presentation/pages/gallary_page.dart';
+import 'package:picsum_gallery/features/splash/presentation/pages/splash_page.dart';
 import 'package:picsum_gallery/init_dependencies.dart';
 
 void main() async {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-        home: const GallaryPage(),
+        home: const SplashPage(),
       ),
     );
   }
@@ -33,16 +33,16 @@ class MyApp extends StatelessWidget {
 
 // Save favorite locally
 // Using Hive/shared_preferences. ,   README
-// ⭐ Offline support
+//  Offline support
 
 // Git cleanup
 // Screenshots
 // Final testing
 
-// ⭐ Debounced search
-// ⭐ SliverAppBar
-// ⭐ Cached search results
-// ⭐ Favorites
-// ⭐ Dark mode
-// ⭐ Skeleton loaders
-// ⭐ Animated transitions
+//  Debounced search
+//  SliverAppBar
+//  Cached search results
+//  Favorites
+//  Dark mode
+//  Skeleton loaders
+//  Animated transitions

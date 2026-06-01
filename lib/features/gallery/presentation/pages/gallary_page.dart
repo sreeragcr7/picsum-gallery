@@ -55,69 +55,82 @@ class _GallaryPageState extends State<GallaryPage> {
 
         body: BlocBuilder<PhotoBloc, PhotoState>(
           builder: (context, state) {
-            if (state is PhotoLoading) {
-              return const ShimmerLoader();
-            }
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
 
-            if (state is PhotoError) {
-              return Center(child: Text(state.message));
-            }
+              switchInCurve: Curves.easeIn,
 
-            if (state is PhotoLoaded) {
-              final Map<String, List<PhotoEntity>> groupedPhotos = {};
+              switchOutCurve: Curves.easeOut,
 
-              for (final photo in state.filteredPhotos) {
-                if (groupedPhotos.containsKey(photo.author)) {
-                  groupedPhotos[photo.author]!.add(photo);
-                } else {
-                  groupedPhotos[photo.author] = [photo];
+              child: () {
+                if (state is PhotoLoading) {
+                  return const ShimmerLoader(key: ValueKey('loading'));
                 }
-              }
 
-              return Column(
-                children: [
-                  AppSearchBar(
-                    onChanged: (value) {
-                      context.read<PhotoBloc>().add(SearchPhotosEvent(value));
-                    },
-                  ),
+                if (state is PhotoError) {
+                  return Center(key: const ValueKey('error'), child: Text(state.message));
+                }
 
-                  Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        currentPage = 1;
+                if (state is PhotoLoaded) {
+                  final Map<String, List<PhotoEntity>> groupedPhotos = {};
 
-                        context.read<PhotoBloc>().add(RefreshPhotosEvent());
-                      },
+                  for (final photo in state.filteredPhotos) {
+                    if (groupedPhotos.containsKey(photo.author)) {
+                      groupedPhotos[photo.author]!.add(photo);
+                    } else {
+                      groupedPhotos[photo.author] = [photo];
+                    }
+                  }
 
-                      child: ListView.builder(
-                        controller: _scrollController,
+                  return Column(
+                    key: const ValueKey('loaded'),
 
-                        itemCount: state.filteredPhotos.length == state.allPhotos.length
-                            ? groupedPhotos.keys.length + 1
-                            : groupedPhotos.keys.length,
-
-                        itemBuilder: (context, index) {
-                          if (state.filteredPhotos.length == state.allPhotos.length &&
-                              index == groupedPhotos.keys.length) {
-                            return const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-
-                          final author = groupedPhotos.keys.elementAt(index);
-
-                          return AuthorSection(author: author, photos: groupedPhotos[author]!);
+                    children: [
+                      AppSearchBar(
+                        onChanged: (value) {
+                          context.read<PhotoBloc>().add(SearchPhotosEvent(value));
                         },
                       ),
-                    ),
-                  ),
-                ],
-              );
-            }
 
-            return const SizedBox.shrink();
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            currentPage = 1;
+
+                            context.read<PhotoBloc>().add(RefreshPhotosEvent());
+                          },
+
+                          child: ListView.builder(
+                            controller: _scrollController,
+
+                            itemCount: state.filteredPhotos.length == state.allPhotos.length
+                                ? groupedPhotos.keys.length + 1
+                                : groupedPhotos.keys.length,
+
+                            itemBuilder: (context, index) {
+                              if (state.filteredPhotos.length == state.allPhotos.length &&
+                                  index == groupedPhotos.keys.length) {
+                                return const Padding(
+                                  padding: EdgeInsets.all(16),
+
+                                  child: Center(child: CircularProgressIndicator()),
+                                );
+                              }
+
+                              final author = groupedPhotos.keys.elementAt(index);
+
+                              return AuthorSection(author: author, photos: groupedPhotos[author]!);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                return const SizedBox.shrink();
+              }(),
+            );
           },
         ),
       ),
