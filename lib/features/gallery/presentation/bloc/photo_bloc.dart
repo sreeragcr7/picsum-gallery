@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:picsum_gallery/core/common/entities/photo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picsum_gallery/core/utils/helperfunctions/helper_fun.dart';
 import 'package:picsum_gallery/features/gallery/domain/repository/photo_repository.dart';
 
 part 'photo_event.dart';
@@ -35,9 +36,18 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
 
   void _onSearchPhotos(SearchPhotosEvent event, Emitter<PhotoState> emit) {
     final currentState = state;
+
     if (currentState is PhotoLoaded) {
+      final query = HelperFun.normalSearch(event.query);
+
+      if (query.isEmpty) {
+        emit(PhotoLoaded(allPhotos: currentState.allPhotos, filteredPhotos: currentState.allPhotos));
+        return;
+      }
       final filtered = currentState.allPhotos.where((photos) {
-        return photos.author.toLowerCase().contains(event.query.toLowerCase());
+        final author = HelperFun.normalSearch(photos.author);
+        return author.contains(query);
+        // return photos.author.toLowerCase().contains(event.query.toLowerCase());
       }).toList();
 
       emit(PhotoLoaded(allPhotos: currentState.allPhotos, filteredPhotos: filtered));

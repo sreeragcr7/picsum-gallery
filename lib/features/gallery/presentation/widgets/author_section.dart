@@ -10,6 +10,8 @@ class AuthorSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final reversedPhotos = photos.reversed.toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,8 +25,10 @@ class AuthorSection extends StatelessWidget {
             height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
+              // reversedPhotos.length,
               itemCount: photos.length,
               itemBuilder: (context, index) {
+                // reversedPhotos[index]
                 return PhotoCard(photo: photos[index]);
               },
             ),

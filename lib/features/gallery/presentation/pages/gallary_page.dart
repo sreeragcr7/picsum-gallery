@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picsum_gallery/core/common/entities/photo.dart';
@@ -5,6 +7,7 @@ import 'package:picsum_gallery/core/widgets/loaders/shimmer_loader.dart';
 import 'package:picsum_gallery/core/widgets/searchbar/app_search_bar.dart';
 import 'package:picsum_gallery/features/gallery/presentation/bloc/photo_bloc.dart';
 import 'package:picsum_gallery/features/gallery/presentation/widgets/author_section.dart';
+import 'package:picsum_gallery/features/gallery/presentation/widgets/gallery_banner.dart';
 
 class GallaryPage extends StatefulWidget {
   const GallaryPage({super.key});
@@ -82,10 +85,21 @@ class _GallaryPageState extends State<GallaryPage> {
                     }
                   }
 
+                  final authors = groupedPhotos.keys.toList()
+                    ..sort((a, b) => b.toLowerCase().compareTo(a.toLowerCase()));
+
+                  final bool hasResults = state.filteredPhotos.isNotEmpty;
+
                   return Column(
                     key: const ValueKey('loaded'),
-
                     children: [
+                      // Banner only when photos exist
+                      if (hasResults)
+                        GalleryBanner(
+                          imageUrl: state.filteredPhotos[Random().nextInt(state.filteredPhotos.length)].imageUrl,
+                        ),
+
+                      // Search Bar
                       AppSearchBar(
                         onChanged: (value) {
                           context.read<PhotoBloc>().add(SearchPhotosEvent(value));
@@ -93,36 +107,53 @@ class _GallaryPageState extends State<GallaryPage> {
                       ),
 
                       Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: () async {
-                            currentPage = 1;
+                        child: !hasResults
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search_off_rounded,
+                                      size: 80,
+                                      color: Theme.of(context).colorScheme.outline,
+                                    ),
 
-                            context.read<PhotoBloc>().add(RefreshPhotosEvent());
-                          },
+                                    const SizedBox(height: 16),
 
-                          child: ListView.builder(
-                            controller: _scrollController,
+                                    Text('No author found', style: Theme.of(context).textTheme.titleMedium),
 
-                            itemCount: state.filteredPhotos.length == state.allPhotos.length
-                                ? groupedPhotos.keys.length + 1
-                                : groupedPhotos.keys.length,
+                                    const SizedBox(height: 8),
 
-                            itemBuilder: (context, index) {
-                              if (state.filteredPhotos.length == state.allPhotos.length &&
-                                  index == groupedPhotos.keys.length) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(16),
+                                    Text('Try another search term', style: Theme.of(context).textTheme.bodyMedium),
+                                  ],
+                                ),
+                              )
+                            : RefreshIndicator(
+                                onRefresh: () async {
+                                  currentPage = 1;
 
-                                  child: Center(child: CircularProgressIndicator()),
-                                );
-                              }
+                                  context.read<PhotoBloc>().add(RefreshPhotosEvent());
+                                },
+                                child: ListView.builder(
+                                  controller: _scrollController,
+                                  itemCount: state.filteredPhotos.length == state.allPhotos.length
+                                      ? authors.length + 1
+                                      : authors.length,
+                                  itemBuilder: (context, index) {
+                                    if (state.filteredPhotos.length == state.allPhotos.length &&
+                                        index == authors.length) {
+                                      return const Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: Center(child: CircularProgressIndicator()),
+                                      );
+                                    }
 
-                              final author = groupedPhotos.keys.elementAt(index);
+                                    final author = authors[index];
 
-                              return AuthorSection(author: author, photos: groupedPhotos[author]!);
-                            },
-                          ),
-                        ),
+                                    return AuthorSection(author: author, photos: groupedPhotos[author]!);
+                                  },
+                                ),
+                              ),
                       ),
                     ],
                   );
